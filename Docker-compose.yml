@@ -1,31 +1,31 @@
 version: "3.8"
 services:
-  app:
+  calc:
     build: .
-    image: sampleapp
+    image: samplecalc
     ports:
       - "3040:3040"
     environment:
       - PORT=3040
-    container_name: my-app
+    container_name: my-calc
     networks:
-      - my-net
+      - my-calc-net
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3040/health"]
       interval: 10s
       timeout: 5s
       retries: 3
     restart: on-failure
-  app1:
+  calc1:
     build: .
-    image: sampleapp
+    image: samplecalc
     ports:
       - "3041:3040"
     environment:
       - PORT=3040
-    container_name: my-app1
+    container_name: my-calc1
     networks:
-      - my-net
+      - my-calc-net
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3040/health"]
       interval: 10s
@@ -34,5 +34,5 @@ services:
     restart: on-failure
 
 networks:
-  my-net:
+  my-calc-net:
     driver: bridge
